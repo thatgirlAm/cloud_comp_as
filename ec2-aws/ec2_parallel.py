@@ -93,12 +93,13 @@ def run_word_count_parallel(instance_details):
     for thread in threads:
         thread.join()
 
-
+'''
 def main():
     # Instance details: (public_ip, local_chunk_path, remote_chunk_path)
     instance_details = [
         ("54.160.147.198", "C:/Users/amaelle.diop/Downloads/chunk1.txt", "/home/ec2-user/chunk1.txt"),
         ("54.224.5.167", "C:/Users/amaelle.diop/Downloads/chunk2.txt", "/home/ec2-user/chunk2.txt"),
+        ("54.208.8.55", )
     ]
 
     # Run the word counter in parallel on multiple EC2 instances
@@ -107,3 +108,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
