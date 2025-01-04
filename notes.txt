@@ -1,0 +1,153 @@
+### Cloud Computing Report
+**2024-2025**
+
+**Software Engineering Techniques in Computing**
+
+**Diop Amaëlle (461543)**
+
+**Professor: Stuart Barnes**
+
+---
+
+### **Acknowledgements**
+This report was developed with guidance from Prof. Stuart Barnes. It also benefited from the assistance of modern Large Language Models, such as ChatGPT and Gemini, which provided valuable debugging and design suggestions.
+
+---
+
+### **Abstract**
+This report explores the design and implementation of a distributed word-count application leveraging Amazon Web Services (AWS). The project aims to demonstrate the benefits of parallel data processing in a cloud environment. The solution utilizes scalable AWS resources, including EC2 instances, S3 buckets, and SQS queues, to efficiently manage, process, and validate large text datasets. The study evaluates system scalability, reliability, and performance in handling real-world challenges, such as fault tolerance and cost-effectiveness.
+
+---
+
+### **Keywords**
+Cloud computing, distributed processing, AWS, S3 buckets, EC2 instances, SQS queues, word count, scalability, fault tolerance.
+
+---
+
+### **Table of Contents**
+
+1. Introduction  
+2. Methodology  
+   2.1 Design Documentation  
+       2.1.1 General Information  
+       2.1.2 Choice of Design  
+       2.1.3 Development Plan  
+       2.1.4 Testing Plan  
+       2.1.5 Success and Performance Metrics  
+3. Results: Calculations and Analysis  
+   3.1 Code Structure  
+   3.2 Application and Visuals  
+   3.3 Validation and Verification  
+   3.4 Performance Analysis  
+   3.5 Improvements and Recommendations  
+4. Conclusion  
+5. Appendices  
+6. Bibliography and References  
+7. Individual Contribution  
+
+---
+
+### **1. Introduction**
+This project focuses on the implementation of a distributed word-count application in a cloud environment. The primary objective is to process a large dataset—a simulated version of Shakespeare’s complete works—by dividing the data into chunks, processing them across multiple EC2 instances, and aggregating the results. The study also evaluates performance metrics, cost-effectiveness, and system resilience. The project serves as a practical exploration of cloud computing concepts and distributed systems, highlighting the benefits and challenges of utilizing AWS for scalable solutions.
+
+---
+
+### **2. Methodology**
+
+#### **2.1 Design Documentation**
+
+##### **2.1.1 General Information**
+- **Purpose**: To demonstrate the use of distributed processing in the cloud for efficient data management and processing.  
+- **Scope**: Implement a scalable word-count solution using AWS resources, suitable for processing large datasets across distributed nodes.  
+- **Actors**: Developer, EC2 instances, AWS SQS, AWS S3.  
+- **Deliverables**: Functional codebase, performance metrics, cost analysis, and a detailed project report.  
+- **Tasks**: Data decomposition, queue management, distributed processing, result aggregation, and testing under various conditions.  
+
+##### **2.1.2 Choice of Design**
+The architecture uses the following AWS services:  
+- **S3 Buckets**: To store the input text file and its processed chunks.  
+- **SQS Queues**: To manage task distribution to multiple worker nodes (EC2 instances).  
+- **EC2 Instances**: To execute the word-count logic in parallel, each processing a specific chunk of data.  
+- **IAM Roles**: To secure interactions between AWS services while granting necessary permissions.  
+
+This design ensures scalability by allowing dynamic addition of EC2 instances and reliability through robust queueing and task management.
+
+##### **2.1.3 Development Plan**
+1. **Data Preparation**: Use Python to split the input text into 5 MB chunks.  
+2. **Queue Management**: Create and configure SQS queues for task distribution.  
+3. **Parallel Processing**: Deploy up to 4 EC2 instances to process chunks concurrently.  
+4. **Result Aggregation**: Implement logic to collect word counts from all chunks and combine them.  
+5. **Error Handling**: Include mechanisms for retrying failed tasks and ensuring system reliability.
+
+##### **2.1.4 Testing Plan**
+- Validate the correctness of word counts for each chunk against known baselines.  
+- Simulate EC2 instance failures and verify the system’s ability to reassign tasks.  
+- Measure execution time for various input sizes to evaluate scalability.  
+- Perform cost analysis by monitoring AWS usage metrics.
+
+##### **2.1.5 Success and Performance Metrics**
+- **Accuracy**: Achieve 100% match with expected word counts for validation datasets.  
+- **Efficiency**: Complete processing within acceptable time limits for large datasets.  
+- **Scalability**: Maintain performance with increasing input sizes by dynamically scaling instances.  
+- **Cost-Effectiveness**: Optimize resource usage to minimize AWS charges while achieving desired performance.
+
+---
+
+### **3. Results: Calculations and Analysis**
+
+#### **3.1 Code Structure**
+The implementation is structured into the following components:  
+- **Data Preparation**: Python scripts split the input file into manageable chunks of 5 MB each, ensuring efficient processing.  
+- **Queue Management**: AWS SQS queues are used to manage tasks and assign them to worker nodes.  
+- **Parallel Processing**: Each EC2 instance runs a custom script that processes its allocated chunk and queues the results.  
+- **Result Aggregation**: A Python script aggregates word counts from all processed chunks.
+
+#### **3.2 Application and Visuals**
+The application workflow includes:  
+1. **Input Data**: Upload a large text file (e.g., 25 MB) to S3.  
+2. **Data Decomposition**: Split the file into smaller chunks and store them in S3.  
+3. **Task Distribution**: Use SQS to assign chunks to EC2 instances.  
+4. **Processing**: EC2 instances process assigned chunks and queue results.  
+5. **Output Aggregation**: Collect and aggregate results into a final word count.  
+
+#### **3.3 Validation and Verification**
+The implementation was validated against smaller datasets with known word counts. Automated test scripts compared expected and actual outputs, ensuring correctness. Task reassignment mechanisms were tested by artificially stopping EC2 instances during execution.
+
+#### **3.4 Performance Analysis**
+Key findings include:  
+- **Chunk Size Optimization**: Smaller chunks increased task management overhead, while larger chunks caused uneven load distribution. A 5 MB chunk size offered the best balance.  
+- **Instance Scaling**: Adding more EC2 instances significantly reduced processing time but increased costs. Optimal performance was achieved with three instances.  
+- **Fault Tolerance**: The system successfully re-queued tasks from failed instances, ensuring reliability.
+
+#### **3.5 Improvements and Recommendations**
+- **Instance Auto-Scaling**: Dynamically adjust the number of EC2 instances based on queue length.  
+- **Improved Queueing**: Explore AWS Step Functions for enhanced task orchestration.  
+- **Cost Monitoring**: Implement a real-time cost tracker to ensure budget adherence.  
+- **Alternative Storage**: Evaluate the use of DynamoDB for intermediate data storage to reduce S3 overhead.
+
+---
+
+### **4. Conclusion**
+This project demonstrated the feasibility and benefits of distributed data processing in a cloud environment. By leveraging AWS services, the system achieved scalability, reliability, and efficiency in processing large datasets. While the implementation met its objectives, further optimization is recommended to improve fault tolerance and reduce costs. This project highlights the potential of cloud computing in solving real-world data processing challenges.
+
+---
+
+### **5. Appendices**
+Include additional materials, such as:  
+- Code snippets (e.g., Python scripts for data preparation and result aggregation).  
+- AWS configuration details (e.g., IAM roles, S3 bucket policies).  
+- Screenshots of the application in action.  
+
+---
+
+### **6. Bibliography and References**
+- AWS Documentation: https://aws.amazon.com/documentation/  
+- Python Official Documentation: https://docs.python.org/  
+- Paramiko Documentation: https://www.paramiko.org/  
+- Best Practices for AWS S3: https://aws.amazon.com/s3/
+
+---
+
+### **7. Individual Contribution**
+Diop Amaëlle was responsible for the project’s end-to-end implementation, including system design, AWS resource configuration, Python script development, testing, and performance analysis. The project leveraged external tools for debugging and optimization, demonstrating effective problem-solving and project management skills.
+
